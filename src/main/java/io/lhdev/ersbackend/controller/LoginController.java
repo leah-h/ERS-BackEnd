@@ -1,8 +1,8 @@
 package io.lhdev.ersbackend.controller;
 
 import io.javalin.Javalin;
-import io.javalin.http.Handler;
 
+import io.javalin.http.Handler;
 import io.lhdev.ersbackend.DTO.LoginDTO;
 import io.lhdev.ersbackend.DTO.MessageDTO;
 import io.lhdev.ersbackend.model.User;

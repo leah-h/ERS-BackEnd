@@ -1,4 +1,4 @@
-package io.lhdev.ersbackend.app;
+package io.lhdev.ersbackend;
 
 import io.javalin.Javalin;
 import io.lhdev.ersbackend.controller.Controller;
@@ -16,7 +16,9 @@ public class Application {
 
     public static void main(String[] args) {
 
-        Javalin app = Javalin.create();
+        Javalin app = Javalin.create((config) -> {
+            config.enableCorsForAllOrigins();
+        });
 
         app.before((ctx) -> {
             String URI = ctx.req.getRequestURI();
@@ -26,7 +28,7 @@ public class Application {
 
         mapControllers(app, new LoginController());
 
-        app.start(7001);
+        app.start(7000);
     }
 
     public static void mapControllers(Javalin app, Controller...controllers){

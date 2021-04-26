@@ -15,10 +15,6 @@ public class ConnectionUtil {
         Driver mariaDBDriver = new Driver();
         DriverManager.registerDriver(mariaDBDriver);
 
-//        String username = System.getenv("DB_USERNAME");
-//        String password = System.getenv("DB_PASSWORD");
-//        String connectionString = System.getenv("DB_URL");
-
             String username = "root";
             String password = "leahh";
             String connectionString = "jdbc:mariadb://localhost/ers_backend";

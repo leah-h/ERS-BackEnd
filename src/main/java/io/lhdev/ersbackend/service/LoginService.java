@@ -7,7 +7,6 @@ import io.lhdev.ersbackend.exception.DatabaseException;
 import io.lhdev.ersbackend.exception.LoginException;
 import io.lhdev.ersbackend.model.User;
 
-import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
 
 
