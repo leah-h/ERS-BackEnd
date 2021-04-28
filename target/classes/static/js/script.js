@@ -48,5 +48,3 @@ function displayInvalidLogin() {
 
 submitButton.addEventListener("click", login);
 
-
-module.exports = {myData};
