@@ -21,7 +21,7 @@ public class ExceptionMapper implements Controller {
 
     private ExceptionHandler<LoginException> loginException = (e, ctx) -> {
         logger.warn(e.getMessage());
-        ctx.status(400);
+        ctx.status(401);
     };
 
 

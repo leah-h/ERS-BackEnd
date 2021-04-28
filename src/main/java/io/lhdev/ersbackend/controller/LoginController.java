@@ -23,13 +23,13 @@ public class LoginController implements Controller {
 
         User user = loginService.login(loginDTO);
 
-        ctx.sessionAttribute("currentlyLoggedInUser: ", user);
+        ctx.sessionAttribute("currentlyLoggedInUser", user);
         ctx.json(user);
     };
 
     private Handler currentUserHandler = (ctx) -> {
 
-        User user = (User) ctx.sessionAttribute("currentlyLoggedInUser");
+        User user = ctx.sessionAttribute("currentlyLoggedInUser");
 
         if (user == null) {
             MessageDTO messageDTO = new MessageDTO();

@@ -6,16 +6,21 @@ public class User {
     private int id;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private int roleId;
 
 
     public User() {
         super();
     }
 
-    public User(int id, String username, String password) {
+    public User(int id, String username, String password, int roleId) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.roleId = roleId;
 
     }
 
@@ -24,6 +29,15 @@ public class User {
         this.password = password;
     }
 
+    public User(int id, String username, String password, String firstName, String lastName, String email, int roleId) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.roleId = roleId;
+    }
 
     public int getId() {
         return id;
@@ -49,14 +63,36 @@ public class User {
         this.password = password;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     @Override
@@ -64,11 +100,24 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && username.equals(user.username) && password.equals(user.password);
+        return id == user.id && roleId == user.roleId && username.equals(user.username) && password.equals(user.password) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password);
+        return Objects.hash(id, username, password, firstName, lastName, email, roleId);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", roleId=" + roleId +
+                '}';
     }
 }

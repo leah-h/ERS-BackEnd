@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Barlow", sans-serif;
+    font-size: 18px;
+    padding: 5% 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    font-family: "Barlow Condensed", sans-serif;
+}
+
+nav {
+    width: 100%;
+    background-color: white;
+    box-shadow: none;
+}
+
+#nav-mobile {
+    color: hsl(230, 29%, 20%);
+}
+
+#new-button {
+    background-color: hsl(230, 29%, 20%);
+    padding: 5px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+#new-button:hover {
+    background-color: hsl(0, 100%, 68%);
+}
+
+main {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: end;
+    padding: 5% 10%;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.main-right {
+    background-color: hsl(207, 33%, 95%);
+    padding-left: 10%;
+    margin-bottom: 10%;
+}
+
+.row {
+    background-color: #fff;
+}
+
+.btn-red {
+    background-color: hsl(0, 100%, 68%);
+    width: 100%;
+}
+
+.btn-red:hover {
+    background-color: hsl(230, 29%, 20%);
+}
+
+.btn-red::after {
+    background-color: hsl(230, 29%, 20%);
+}
+
+.active {
+    color: hsl(230, 29%, 20%);
+}
+
+#expense-span {
+    padding: 0.5rem;
+    letter-spacing: 0.25em;
+}
+
+h2 {
+    font-size: 3.5rem;
+    margin-top: 2rem;
+}
+
+.card-title {
+    font-size: 0.4rem;
+}
+
+.card-content {
+    text-align: center;
+}
+/* ------------------------- */
+@media screen and (min-width: 1024px) {
+    main {
+        display: flex;
+        flex-direction: row;
+        padding: 5% 0 5% 0;
+    }
+
+    .main-right {
+        background-color: #fff;
+    }
+
+    #main-illustration {
+        width: 960px;
+    }
+}

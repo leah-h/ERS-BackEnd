@@ -11,8 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class UserDAO {
 
@@ -23,8 +22,6 @@ public class UserDAO {
     public UserDAO() {
         super();
     }
-
-
 
     public void setConnection(Connection connection) {
         this.connection = connection;
@@ -46,11 +43,15 @@ public class UserDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("user_id");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String email = rs.getString("email");
+                int roleId = rs.getInt("role_id");
 
-                user = new User(id, username, password);
+                user = new User(id, username, password, firstName, lastName, email, roleId);
 
                 if(loginDTO.getUsername().equals(user.getUsername()) && loginDTO.getPassword().equals(user.getPassword())){
                     return user;

@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.lhdev.ersbackend.controller.Controller;
 import io.lhdev.ersbackend.controller.LoginController;
 
+import io.lhdev.ersbackend.exception.ExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ public class Application {
     public static void main(String[] args) {
 
         Javalin app = Javalin.create((config) -> {
+            config.addStaticFiles("static");
             config.enableCorsForAllOrigins();
         });
 
@@ -26,7 +28,7 @@ public class Application {
             logger.info(httpMethod + " request to endpoint " + URI + " received");
         });
 
-        mapControllers(app, new LoginController());
+        mapControllers(app, new LoginController(), new ExceptionMapper());
 
         app.start(7000);
     }
