@@ -18,7 +18,7 @@
         <!-- Used to create, update, or validate database schema -->
         <!-- Possible options:
          create, update, validate, create-drop -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">validate</property>
 
         <!-- Specify our entity/class mappings here -->
         <mapping class="io.lhdev.ersbackend.model.User"></mapping>
