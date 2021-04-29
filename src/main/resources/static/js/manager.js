@@ -19,7 +19,7 @@ function renderCurrentUser() {
         let lastName = data.lastName;
         let email = data.email;
 
-        let userInfoElement = document.querySelector('#user');
+        let userInfoElement = document.querySelector('#manager');
         userInfoElement.innerHTML = `User id: ${id}, username: ${username}, firstName: ${firstName}`
     })
 }
@@ -40,6 +40,6 @@ async function logout() {
     })
 }
 
-let logoutButton = document.getElementById("logout");
+let logoutButton = document.getElementById("manager-logout");
 logoutButton.addEventListener('click', logout);
 

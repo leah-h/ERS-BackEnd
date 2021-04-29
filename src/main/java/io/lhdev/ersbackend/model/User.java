@@ -1,14 +1,30 @@
 package io.lhdev.ersbackend.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="user_id")
     private int id;
+
     private String username;
     private String password;
+
+    @Column(name="first_name")
     private String firstName;
+
+    @Column(name="last_name")
     private String lastName;
+
     private String email;
+
+    @Column(name="role_id")
+    @JoinColumn(name="role_id")
     private int roleId;
 
 
@@ -39,6 +55,7 @@ public class User {
         this.roleId = roleId;
     }
 
+    @Id
     public int getId() {
         return id;
     }

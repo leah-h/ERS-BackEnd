@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <!-- JDBC database connection settings -->
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/ers_backend</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">leahh</property>
+
+        <!-- SQL Dialect -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+
+        <!-- Show generated SQL queries -->
+        <property name="show-sql">true</property>
+
+        <!-- Used to create, update, or validate database schema -->
+        <!-- Possible options:
+         create, update, validate, create-drop -->
+        <property name="hbm2ddl.auto">create</property>
+
+        <!-- Specify our entity/class mappings here -->
+        <mapping class="io.lhdev.ersbackend.model.User"></mapping>
+
+    </session-factory>
+</hibernate-configuration>

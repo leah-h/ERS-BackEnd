@@ -24,8 +24,6 @@ function renderCurrentUser() {
     })
 }
 
-let logoutButton = document.getElementById("logout");
-
 async function logout() {
 
     const result = await fetch("http://localhost:7000/logout", {
@@ -42,6 +40,5 @@ async function logout() {
     })
 }
 
+let logoutButton = document.getElementById("logout");
 logoutButton.addEventListener('click', logout);
-
-export {renderCurrentUser, logout};
