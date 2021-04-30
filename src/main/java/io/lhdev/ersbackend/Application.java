@@ -4,6 +4,7 @@ import io.javalin.Javalin;
 import io.lhdev.ersbackend.controller.Controller;
 import io.lhdev.ersbackend.controller.LoginController;
 
+import io.lhdev.ersbackend.controller.ReimbursementController;
 import io.lhdev.ersbackend.exception.ExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class Application {
             logger.info(httpMethod + " request to endpoint " + URI + " received");
         });
 
-        mapControllers(app, new LoginController(), new ExceptionMapper());
+        mapControllers(app, new LoginController(), new ExceptionMapper(), new ReimbursementController());
 
         app.start(7000);
     }

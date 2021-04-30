@@ -50,17 +50,18 @@ public class ReimbursementDAO {
 
 //    }
 
-    public List<Reimbursement> getAllReimbursements() throws DatabaseException, SQLException {
+    public List<Reimbursement> getAllReimbursements() {
 
         Session session = SessionUtility.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
 
         try {
-            List<Reimbursement> reimbursements = session.createQuery("FROM Reimbursement r")
-                    .getResultList();
+            String hql = "FROM Reimbursement";
+            Query query = session.createQuery(hql);
+            List results = query.list();
 
             tx.commit();
-            return reimbursements;
+            return results;
 
         } catch (Exception e) {
             if (tx != null) {
@@ -68,10 +69,10 @@ public class ReimbursementDAO {
             }
             e.printStackTrace();
         }finally {
-            if(session != null) {session.close();}
+           session.close();
         }
 
-        return null;
+        return getAllReimbursements();
         }
     }
 

@@ -1,5 +1,29 @@
 window.onload = function() {
     renderCurrentUser();
+    getAllReimbursements();
+}
+
+async function getAllReimbursements() {
+
+    const reimbursements = await fetch("http://localhost:7000/reimbursements", {
+        method: 'GET',
+        credentials: 'include'
+    }).then((response) => {
+        if (response.status === 400) {
+            window.location.href = '/';
+        }
+        return response.json();
+    })
+
+    // let myReimbursements = await reimbursements.json();
+    console.log(reimbursements);
+
+    reimbursements.forEach(reimbursement => {
+        let resultsReimbursementsElement = document.querySelector('#results-reimbursement');
+        resultsReimbursementsElement.innerHTML += `ReimbursementId: ${reimbursement.id}, amount: $ ${reimbursement.amount},` +
+        `description: ${reimbursement.description}, typeId: ${reimbursement.typeId} \n`
+    })
+
 }
 
 function renderCurrentUser() {
