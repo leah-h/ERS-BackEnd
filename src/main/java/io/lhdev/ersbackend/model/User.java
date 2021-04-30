@@ -9,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int userId;
 
     private String username;
     private String password;
@@ -29,8 +29,8 @@ public class User {
         super();
     }
 
-    public User(int id, String username, String password, int roleId) {
-        this.id = id;
+    public User(int userId, String username, String password, int roleId) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.roleId = roleId;
@@ -42,8 +42,8 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String username, String password, String firstName, String lastName, String email, int roleId) {
-        this.id = id;
+    public User(int userId, String username, String password, String firstName, String lastName, String email, int roleId) {
+        this.userId = userId;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -53,7 +53,6 @@ public class User {
     }
 
     public User(String username, String password, String firstName, String lastName, String email, int roleId) {
-        this.id = id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -64,11 +63,11 @@ public class User {
 
     @Id
     public int getId() {
-        return id;
+        return userId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -124,18 +123,18 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && roleId == user.roleId && username.equals(user.username) && password.equals(user.password) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email);
+        return userId == user.userId && roleId == user.roleId && username.equals(user.username) && password.equals(user.password) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, firstName, lastName, email, roleId);
+        return Objects.hash(userId, username, password, firstName, lastName, email, roleId);
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

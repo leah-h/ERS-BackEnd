@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="rtype")
+@Table(name="r_type")
 public class ReimbursementType {
 
     @Id

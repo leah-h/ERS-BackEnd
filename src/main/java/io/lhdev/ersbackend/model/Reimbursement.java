@@ -10,15 +10,21 @@ public class Reimbursement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int reimId;
 
     private int amount;
     private Date submitted;
     private Date resolved;
     private String description;
+
+    @JoinColumn(name="userId")
     private int author;
     private int resolver;
+
+    @JoinColumn(name="statusId")
     private int statusId;
+
+    @JoinColumn(name="typeId")
     private int typeId;
 
     public Reimbursement() {
@@ -37,9 +43,17 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
-    public Reimbursement(int id, int amount, Date submitted, Date resolved, String description, int author,
+    public Reimbursement(int reimId, int amount, String description, int author, int typeId){
+        this.reimId = reimId;
+        this.amount = amount;
+        this.description = description;
+        this.author = author;
+        this.typeId = typeId;
+    }
+
+    public Reimbursement(int reimId, int amount, Date submitted, Date resolved, String description, int author,
                          int resolver, int statusId, int typeId) {
-        this.id = id;
+        this.reimId = reimId;
         this.amount = amount;
         this.submitted = submitted;
         this.resolved = resolved;
@@ -51,11 +65,11 @@ public class Reimbursement {
     }
 
     public int getId() {
-        return id;
+        return reimId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int reimId) {
+        this.reimId = reimId;
     }
 
     public int getAmount() {
@@ -127,20 +141,20 @@ public class Reimbursement {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reimbursement that = (Reimbursement) o;
-        return id == that.id && amount == that.amount && author == that.author && resolver == that.resolver &&
+        return reimId == that.reimId && amount == that.amount && author == that.author && resolver == that.resolver &&
                 statusId == that.statusId && typeId == that.typeId && submitted.equals(that.submitted) &&
                 resolved.equals(that.resolved) && description.equals(that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, amount, submitted, resolved, description, author, resolver, statusId, typeId);
+        return Objects.hash(reimId, amount, submitted, resolved, description, author, resolver, statusId, typeId);
     }
 
     @Override
     public String toString() {
         return "Reimbursement{" +
-                "id=" + id +
+                "id=" + reimId +
                 ", amount=" + amount +
                 ", submitted=" + submitted +
                 ", resolved=" + resolved +

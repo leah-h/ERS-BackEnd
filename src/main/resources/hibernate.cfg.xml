@@ -22,6 +22,11 @@
 
         <!-- Specify our entity/class mappings here -->
         <mapping class="io.lhdev.ersbackend.model.User"></mapping>
+        <mapping class="io.lhdev.ersbackend.model.UserRole"></mapping>
+        <mapping class="io.lhdev.ersbackend.model.ReimbursementType"></mapping>
+        <mapping class="io.lhdev.ersbackend.model.ReimbursementStatus"></mapping>
+        <mapping class="io.lhdev.ersbackend.model.Reimbursement"></mapping>
+
 
     </session-factory>
 </hibernate-configuration>
