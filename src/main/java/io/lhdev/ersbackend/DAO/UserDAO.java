@@ -43,13 +43,13 @@ public class UserDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                int id = rs.getInt("userId");
+                int id = rs.getInt("user_id");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
-                int roleId = rs.getInt("roleId");
+                int roleId = rs.getInt("role_id");
 
                 user = new User(id, username, password, firstName, lastName, email, roleId);
 

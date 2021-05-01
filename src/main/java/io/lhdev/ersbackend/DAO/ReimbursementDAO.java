@@ -31,24 +31,6 @@ public class ReimbursementDAO {
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-//
-//    public Reimbursement addReimbursementByUser(LoginDTO loginDTO) throws DatabaseException, SQLException {
-
-
-//        Session session = SessionUtility.getSessionFactory().openSession();
-//
-//            Transaction tx = session.beginTransaction();
-//
-//            Reimbursement reimbursement = new Reimbursement(100, "Food allowance, field visit",
-//                    2, 1);
-//
-//            session.save(reimbursement);
-//
-//            tx.commit();
-//
-//            return reimbursement;
-
-//    }
 
     public List<Reimbursement> getAllReimbursements() {
 
@@ -74,32 +56,41 @@ public class ReimbursementDAO {
 
         return getAllReimbursements();
         }
+
+    public List<Reimbursement> getReimbursementsByUserId(int userId) throws DatabaseException, SQLException {
+        Session session = SessionUtility.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+            logger.info("UserId value is: " + userId);
+
+            String hql = "FROM Reimbursement WHERE author= ?";
+            Query query = session.createQuery(hql);
+            List results = query.list();
+
+            tx.commit();
+            return results;
+
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return getReimbursementsByUserId(userId);
     }
 
-//        List<Reimbursement> listOfReimbursements = new ArrayList<>();
-//
-//        try (Connection connection = ConnectionUtil.getConnection()) {
-//            String sql = "SELECT * FROM reimbursements";
-//
-//            Statement stmt = connection.createStatement();
-//
-//            ResultSet rs = stmt.executeQuery(sql);
-//
-//            while (rs.next()) {
-//                int reimId = rs.getInt("reimId");
-//                int amount = rs.getInt("amount");
-//                String description = rs.getString("description");
-//                int author = rs.getInt("author");
-//                int typeId = rs.getInt("typeId");
-//
-//                Reimbursement reimbursement = new Reimbursement(reimId, amount, description, author, typeId);
-//                listOfReimbursements.add(reimbursement);
-//            }
-//        } catch (SQLException e) {
-//            throw new DatabaseException("Unable to connect: " + e.getMessage());
-//        }
-//
-//        return listOfReimbursements;
-//    }
+
+
+
+}
+
+
+
+
+
 
 

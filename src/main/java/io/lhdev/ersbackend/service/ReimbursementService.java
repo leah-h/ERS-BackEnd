@@ -24,4 +24,8 @@ public class ReimbursementService {
     public List<Reimbursement> getAllReimbursements() throws DatabaseException, SQLException {
         return reimbursementDAO.getAllReimbursements();
     }
+
+    public List<Reimbursement> getReimbursementByUserId(int author) throws DatabaseException, SQLException {
+        return reimbursementDAO.getReimbursementsByUserId(author);
+    }
 }

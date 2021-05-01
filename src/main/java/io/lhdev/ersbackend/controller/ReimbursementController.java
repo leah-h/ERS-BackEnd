@@ -27,11 +27,26 @@ public class ReimbursementController implements Controller {
         ctx.json(reimbursementList);
     };
 
+    private Handler getReimbursementsByUserId = (ctx) -> {
+        String userId = ctx.pathParam("id");
+
+        List<Reimbursement> userReimbursements = reimbursementService.getReimbursementByUserId(Integer.parseInt(userId));
+
+        if(!userReimbursements.isEmpty()) {
+            ctx.json(userReimbursements);
+        } else {
+            logger.info("User with id: " + Integer.parseInt(userId) + " does not exist.");
+            ctx.result("User does not exist.");
+        }
+
+    };
+
 
     @Override
     public void mapEndpoints(Javalin app) {
 
         app.get("/reimbursements", getAllReimbursements);
+        app.get("/reimbursements/:id", getReimbursementsByUserId);
     }
 
 }

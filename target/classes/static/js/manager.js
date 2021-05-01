@@ -20,7 +20,7 @@ async function getAllReimbursements() {
 
     reimbursements.forEach(reimbursement => {
         let resultsReimbursementsElement = document.querySelector('#results-reimbursement');
-        resultsReimbursementsElement.innerHTML += `ReimbursementId: ${reimbursement.id}, amount: ${reimbursement.amount},` +
+        resultsReimbursementsElement.innerHTML += `ReimbursementId: ${reimbursement.id}, amount: $ ${reimbursement.amount},` +
         `description: ${reimbursement.description}, typeId: ${reimbursement.typeId} \n`
     })
 

@@ -9,8 +9,10 @@ public class ReimbursementStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "status_id")
     private int statusId;
 
+    @Column(name = "r_status")
     private String status;
 
     public ReimbursementStatus() {

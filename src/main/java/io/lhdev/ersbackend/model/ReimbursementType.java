@@ -4,13 +4,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name="r_type")
+@Table(name="r_types")
 public class ReimbursementType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "type_id")
     private int typeId;
 
+    @Column(name = "r_type")
     private String type;
 
     public ReimbursementType() {
