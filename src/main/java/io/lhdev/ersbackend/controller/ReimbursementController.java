@@ -55,6 +55,39 @@ public class ReimbursementController implements Controller {
 
     };
 
+    private Handler filterReimbursementsByStatusId = ctx -> {
+
+        String statusId = ctx.pathParam("id");
+
+        List<Reimbursement> reimbursementsByStatus = reimbursementService.filterReimbursementsByStatusId(Integer.parseInt(statusId));
+
+        if(!reimbursementsByStatus.isEmpty()) {
+            logger.info("where's my reimbursements?!");
+            ctx.json(reimbursementsByStatus);
+        } else {
+            logger.info("Reimbursements with statusId: " + Integer.parseInt(statusId) + " does not exist.");
+            ctx.result("No reimbursements exist.");
+        }
+    };
+
+    private Handler approveReimbursementById = ctx -> {
+
+        String reimId = ctx.pathParam("id");
+
+        Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
+
+        Reimbursement approvedReimbursement = reimbursementService.approveReimbursementById(Integer.parseInt(reimId),
+                reimbursement);
+
+        if (approvedReimbursement.getId() != 0) {
+            ctx.json(approvedReimbursement);
+        } else {
+            logger.info("Something went wrong...try again");
+            ctx.result("Something went wrong...try again");
+        }
+
+    };
+
 
     @Override
     public void mapEndpoints(Javalin app) {
@@ -62,6 +95,8 @@ public class ReimbursementController implements Controller {
         app.get("/reimbursements", getAllReimbursements);
         app.post("/reimbursements", addReimbursement);
         app.get("/reimbursements/:id", getReimbursementsByUserId);
+        app.get("/reimbursements/filtered/:id", filterReimbursementsByStatusId);
+        app.put("/reimbursements/:id", approveReimbursementById);
 
     }
 

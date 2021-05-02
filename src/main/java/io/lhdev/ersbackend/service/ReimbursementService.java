@@ -6,6 +6,7 @@ import io.lhdev.ersbackend.model.Reimbursement;
 import org.hibernate.dialect.Database;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class ReimbursementService {
@@ -31,5 +32,14 @@ public class ReimbursementService {
 
     public Reimbursement addReimbursement(Reimbursement reimbursement) throws DatabaseException, SQLException {
         return reimbursementDAO.addReimbursement(reimbursement);
+    }
+
+    public List<Reimbursement> filterReimbursementsByStatusId(int statusId) throws DatabaseException, SQLException {
+        return reimbursementDAO.filterReimbursementsByStatusId(statusId);
+    }
+
+    public Reimbursement approveReimbursementById(int reimId, Reimbursement reimbursement) throws DatabaseException,
+            SQLException {
+        return reimbursementDAO.approveReimbursementById(reimId, reimbursement);
     }
 }
