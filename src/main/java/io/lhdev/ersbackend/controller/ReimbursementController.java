@@ -41,12 +41,28 @@ public class ReimbursementController implements Controller {
 
     };
 
+    private Handler addReimbursement = ctx -> {
+        Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
+
+        Reimbursement insertedReimbursement = reimbursementService.addReimbursement(reimbursement);
+
+        if (insertedReimbursement.getId() != 0) {
+            ctx.json(insertedReimbursement);
+        } else {
+            logger.info("Something went wrong...try again");
+            ctx.result("Something went wrong...try again");
+        }
+
+    };
+
 
     @Override
     public void mapEndpoints(Javalin app) {
 
         app.get("/reimbursements", getAllReimbursements);
+        app.post("/reimbursements", addReimbursement);
         app.get("/reimbursements/:id", getReimbursementsByUserId);
+
     }
 
 }

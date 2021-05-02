@@ -5,6 +5,7 @@ import io.javalin.Javalin;
 import io.javalin.http.Handler;
 import io.lhdev.ersbackend.DTO.LoginDTO;
 import io.lhdev.ersbackend.DTO.MessageDTO;
+import io.lhdev.ersbackend.model.Reimbursement;
 import io.lhdev.ersbackend.model.User;
 import io.lhdev.ersbackend.service.LoginService;
 
@@ -44,6 +45,8 @@ public class LoginController implements Controller {
     private Handler logoutHandler = (ctx) -> {
         ctx.req.getSession().invalidate();
     };
+
+
 
     @Override
     public void mapEndpoints(Javalin app) {

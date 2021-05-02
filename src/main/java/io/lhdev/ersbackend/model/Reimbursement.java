@@ -1,8 +1,8 @@
 package io.lhdev.ersbackend.model;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -17,10 +17,12 @@ public class Reimbursement {
     private double amount;
 
     @Basic
-    private LocalDate submitted;
+    @Temporal(TemporalType.DATE)
+    private Date submitted;
 
     @Basic
-    private LocalDate resolved;
+    @Temporal(TemporalType.DATE)
+    private Date resolved;
 
     private String description;
 
@@ -42,7 +44,7 @@ public class Reimbursement {
         super();
     }
 
-    public Reimbursement(int amount, LocalDate submitted, LocalDate resolved, String description, int author, int resolver,
+    public Reimbursement(int amount, Date submitted, Date resolved, String description, int author, int resolver,
                          int statusId, int typeId) {
         this.amount = amount;
         this.submitted = submitted;
@@ -62,7 +64,7 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
-    public Reimbursement(int reimId, double amount, LocalDate submitted, LocalDate resolved, String description, int author,
+    public Reimbursement(int reimId, double amount, Date submitted, Date resolved, String description, int author,
                          int resolver, int statusId, int typeId) {
         this.reimId = reimId;
         this.amount = amount;
@@ -75,7 +77,7 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
-    public Reimbursement(int reimId, double amount, LocalDate submitted, LocalDate resolved, String description, int author,
+    public Reimbursement(int reimId, double amount, Date submitted, Date resolved, String description, int author,
                          int resolver, int statusId, int typeId, String receipt) {
         this.reimId = reimId;
         this.amount = amount;
@@ -105,19 +107,19 @@ public class Reimbursement {
         this.amount = amount;
     }
 
-    public LocalDate getSubmitted() {
+    public Date getSubmitted() {
         return submitted;
     }
 
-    public void setSubmitted(LocalDate submitted) {
+    public void setSubmitted(Date submitted) {
         this.submitted = submitted;
     }
 
-    public LocalDate getResolved() {
+    public Date getResolved() {
         return resolved;
     }
 
-    public void setResolved(LocalDate resolved) {
+    public void setResolved(Date resolved) {
         this.resolved = resolved;
     }
 

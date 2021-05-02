@@ -84,6 +84,37 @@ public class ReimbursementDAO {
     }
 
 
+    public Reimbursement addReimbursement(Reimbursement reimbursement) throws DatabaseException,
+            SQLException {
+
+        Session session = SessionUtility.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+
+        try {
+
+            Reimbursement newReim  = new Reimbursement();
+            newReim = reimbursement;
+
+            logger.info("new reimbursement value is: " + reimbursement);
+
+            session.save(newReim);
+
+            tx.commit();
+            return newReim;
+
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return addReimbursement(reimbursement);
+    }
+
+
 
 
 }

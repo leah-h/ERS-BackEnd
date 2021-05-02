@@ -28,4 +28,8 @@ public class ReimbursementService {
     public List<Reimbursement> getReimbursementByUserId(int author) throws DatabaseException, SQLException {
         return reimbursementDAO.getReimbursementsByUserId(author);
     }
+
+    public Reimbursement addReimbursement(Reimbursement reimbursement) throws DatabaseException, SQLException {
+        return reimbursementDAO.addReimbursement(reimbursement);
+    }
 }

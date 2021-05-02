@@ -33,7 +33,7 @@ CREATE TABLE users (
 CREATE TABLE reimbursements (
     reim_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     amount DOUBLE NOT NULL,
-    submitted DATE NOT NULL,
+    submitted DATE DEFAULT NULL,
     resolved DATE,
     description VARCHAR(250),
     author INTEGER,

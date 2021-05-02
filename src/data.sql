@@ -18,16 +18,16 @@ VALUES (2, "employee");
 
 -- mock reimbursements data
 insert into reimbursements (reim_id, amount, submitted, resolved, author, resolver, status_id, type_id)
-values (239, 301.41, '2021-08-27', '2020-11-05', 1, 2, 2, 1);
+values (239, 301.41, '2021-08-27', '2020-11-05', 1002, 1001, 2, 1);
 
 insert into reimbursements (reim_id, amount, submitted, resolved, author, resolver, status_id, type_id)
-values (221, 190.01, '2020-11-12', '2021-07-09', 1, 2, 3, 4);
+values (221, 190.01, '2020-11-12', '2021-07-09', 1002, 1001, 3, 4);
 
 insert into reimbursements (reim_id, amount, submitted, resolved, author, resolver, status_id, type_id)
- values (136, 202.93, '2021-08-08', '2021-11-23', 1, 2, 3, 1);
+ values (136, 202.93, '2021-08-08', '2021-11-23', 1002, 1001, 3, 1);
 
 insert into reimbursements (reim_id, amount, submitted, resolved, author, resolver, status_id, type_id)
-values (274, 298.34, '2021-02-24', '2021-09-11', 1, 2, 2, 3);
+values (274, 298.34, '2021-02-24', '2021-09-11', 1002, 1001, 2, 3);
 
 insert into reimbursements (reim_id, amount, submitted, resolved, author, resolver, status_id, type_id)
 values (394, 421.3, '2021-03-05', '2020-05-01', 1, 0, 1, 3);
