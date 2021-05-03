@@ -29,7 +29,7 @@ public class ReimbursementDAO {
         this.connection = connection;
     }
 
-    public List<Reimbursement> getAllReimbursements() {
+    public static List<Reimbursement> getAllReimbursements() {
 
         Session session = SessionUtility.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
@@ -175,9 +175,6 @@ public class ReimbursementDAO {
         return approveReimbursementById(reimId, reimbursement);
 
     }
-
-
-
 
 }
 

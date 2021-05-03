@@ -64,6 +64,14 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
+    public Reimbursement(double amount, Date submitted, String description, int author, int typeId){
+        this.amount = amount;
+        this.submitted = submitted;
+        this.description = description;
+        this.author = author;
+        this.typeId = typeId;
+    }
+
     public Reimbursement(int reimId, double amount, Date submitted, Date resolved, String description, int author,
                          int resolver, int statusId, int typeId) {
         this.reimId = reimId;
