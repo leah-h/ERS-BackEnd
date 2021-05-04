@@ -1,3 +1,5 @@
+"use strict";
+
 window.onload = function () {
   renderCurrentUser();
 };
@@ -35,7 +37,7 @@ async function renderCurrentUser() {
   }
 
   let userInfoElement = document.querySelector("#user");
-  userInfoElement.innerHTML = `firstName: ${eFirstName}, lastName: ${eLastName}, email: ${eEmail}`;
+  userInfoElement.innerHTML = `userid: ${eId} firstName: ${eFirstName}, lastName: ${eLastName}, email: ${eEmail}`;
 
   return eCurrentUser;
 }
@@ -58,10 +60,10 @@ async function getReimbursementsByUserId(id) {
         // format time
         // let formatSubmitted = reimbursement.submitted.toLocaleDateString();
         let d = new Date(reimbursement.submitted);
-        formatSubmitted = d.toLocaleDateString();
+        let formatSubmitted = d.toLocaleDateString();
 
         let dr = new Date(reimbursement.resolved);
-        formatResolved = dr.toLocaleDateString();
+        let formatResolved = dr.toLocaleDateString();
 
         let resultsUserReimbursementsElement = document.querySelector(
           "#user-reimbursements"
@@ -73,8 +75,8 @@ async function getReimbursementsByUserId(id) {
           <td>${reimbursement.description}</td>
           <td>${formatSubmitted}</td>
           <td>${reimbursement.status}</td>
-          <td>${formatResolved}
-          </td><td>${reimbursement.resolver}</td>
+          <td>${formatResolved}</td>
+          <td>${reimbursement.resolver}</td>
         </tr>`;
       });
     });
@@ -96,5 +98,52 @@ function logout() {
   });
 }
 
+let reimForm = document.getElementById("reim-request-form");
+let eAmount = document.getElementById("amount");
+let eType = document.getElementById("r-type");
+let eDescription = document.getElementById("description");
+let eSubmitted = document.getElementById("submitted");
+let eAuthor = document.getElementById("author");
+let eReceipt = document.getElementById("receipt");
+let reqSubmitButton = document.getElementById("reim-submit");
+
+function addReimbursementRequest() {
+  let data = {
+    amount: eAmount.value,
+    typeId: eType.value,
+
+    description: eDescription.value,
+    submitted: eSubmitted.value,
+    author: eAuthor.value,
+    receipt: eReceipt.value,
+  };
+
+  console.log(data);
+
+  fetch(`http://localhost:7000/reimbursements`, {
+    method: "POST",
+    mode: "no-cors",
+    credentials: "include",
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (response.status === 200) {
+      return response;
+    } else if (response.status === 401) {
+      console.log("Unable to process request. Please try again");
+    }
+  });
+
+  // console.log("Reimbursement Request result: " + response);
+  // if (response != null) {
+  //   reimForm.clear();
+  // }
+  // return response;
+}
+
 let logoutButton = document.getElementById("logout");
 logoutButton.addEventListener("click", logout);
+
+reqSubmitButton.addEventListener("click", addReimbursementRequest);
