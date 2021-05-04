@@ -14,6 +14,7 @@ public class Reimbursement {
     @Column(name="reim_id")
     private int reimId;
 
+    @Column
     private double amount;
 
     @Basic
@@ -24,10 +25,13 @@ public class Reimbursement {
     @Temporal(TemporalType.DATE)
     private Date resolved;
 
+    @Column
     private String description;
 
+    @Column
     private int author;
 
+    @Column
     private int resolver;
 
     @Column(name="status_id")
@@ -38,6 +42,7 @@ public class Reimbursement {
     @JoinColumn(name="type_id")
     private int typeId;
 
+    @Column
     private String receipt;
 
     public Reimbursement() {

@@ -28,14 +28,14 @@ public class ReimbursementController implements Controller {
     };
 
     private Handler getReimbursementsByUserId = (ctx) -> {
-        String userId = ctx.pathParam("id");
+        String id = ctx.pathParam("id");
 
-        List<Reimbursement> userReimbursements = reimbursementService.getReimbursementByUserId(Integer.parseInt(userId));
+        List<Reimbursement> userReimbursements = reimbursementService.getReimbursementByUserId(Integer.parseInt(id));
 
         if(!userReimbursements.isEmpty()) {
             ctx.json(userReimbursements);
         } else {
-            logger.info("User with id: " + Integer.parseInt(userId) + " does not exist.");
+            logger.info("User with id: " + Integer.parseInt(id) + " does not exist.");
             ctx.result("User does not exist.");
         }
 
@@ -57,26 +57,27 @@ public class ReimbursementController implements Controller {
 
     private Handler filterReimbursementsByStatusId = ctx -> {
 
-        String statusId = ctx.pathParam("id");
+        String id = ctx.pathParam("id");
 
-        List<Reimbursement> reimbursementsByStatus = reimbursementService.filterReimbursementsByStatusId(Integer.parseInt(statusId));
+        List<Reimbursement> reimbursementsByStatus = reimbursementService.
+                filterReimbursementsByStatusId(Integer.parseInt(id));
 
         if(!reimbursementsByStatus.isEmpty()) {
             logger.info("where's my reimbursements?!");
             ctx.json(reimbursementsByStatus);
         } else {
-            logger.info("Reimbursements with statusId: " + Integer.parseInt(statusId) + " does not exist.");
+            logger.info("Reimbursements with statusId: " + Integer.parseInt(id) + " does not exist.");
             ctx.result("No reimbursements exist.");
         }
     };
 
     private Handler approveReimbursementById = ctx -> {
 
-        String reimId = ctx.pathParam("id");
+        String id = ctx.pathParam("id");
 
         Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
 
-        Reimbursement approvedReimbursement = reimbursementService.approveReimbursementById(Integer.parseInt(reimId),
+        Reimbursement approvedReimbursement = reimbursementService.approveReimbursementById(Integer.parseInt(id),
                 reimbursement);
 
         if (approvedReimbursement.getId() != 0) {

@@ -44,14 +44,21 @@ async function renderCurrentUser() {
   let lastName = currentUser.lastName;
   let email = currentUser.email;
 
+  // save userId, check browser support
+  if (typeof Storage !== "undefined") {
+    // store
+    console.log("i'm here...");
+    sessionStorage.setItem("id", id);
+  }
+
   let userInfoElement = document.querySelector("#manager");
-  userInfoElement.innerHTML = `User id: ${id}, username: ${username}, firstName: ${firstName}`;
+  userInfoElement.innerHTML = `firstName: ${firstName}, lastName: ${lastName}, email: ${email}`;
 
   return currentUser;
 }
 
-async function logout() {
-  const result = await fetch("http://localhost:7000/logout", {
+function logout() {
+  fetch("http://localhost:7000/logout", {
     method: "POST",
     mode: "no-cors",
     credentials: "include",
@@ -65,7 +72,5 @@ async function logout() {
   });
 }
 
-let logoutButton = document.getElementById("manager-logout");
-logoutButton.addEventListener("click", logout);
-
-export { currentUser, renderCurrentUser };
+let mLogout = document.getElementById("manager-logout");
+mLogout.addEventListener("click", logout);

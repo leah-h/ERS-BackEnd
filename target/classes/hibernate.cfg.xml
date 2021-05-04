@@ -21,11 +21,11 @@
         <property name="hbm2ddl.auto">update</property>
 
         <!-- Specify our entity/class mappings here -->
-        <mapping class="io.lhdev.ersbackend.model.User"></mapping>
-        <mapping class="io.lhdev.ersbackend.model.UserRole"></mapping>
-        <mapping class="io.lhdev.ersbackend.model.ReimbursementType"></mapping>
-        <mapping class="io.lhdev.ersbackend.model.ReimbursementStatus"></mapping>
-        <mapping class="io.lhdev.ersbackend.model.Reimbursement"></mapping>
+        <mapping class="io.lhdev.ersbackend.model.User"/>
+        <mapping class="io.lhdev.ersbackend.model.UserRole"/>
+        <mapping class="io.lhdev.ersbackend.model.ReimbursementType"/>
+        <mapping class="io.lhdev.ersbackend.model.ReimbursementStatus"/>
+        <mapping class="io.lhdev.ersbackend.model.Reimbursement"/>
 
 
     </session-factory>

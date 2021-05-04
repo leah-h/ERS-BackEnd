@@ -12,7 +12,10 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
+    @Column
     private String username;
+
+    @Column
     private String password;
 
     @Column(name = "first_name")
@@ -21,6 +24,7 @@ public class User {
     @Column(name= "last_name")
     private String lastName;
 
+    @Column
     private String email;
 
     @Column(name = "role_id")
