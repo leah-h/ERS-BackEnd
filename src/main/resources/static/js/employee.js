@@ -1,10 +1,13 @@
 window.onload = function () {
   renderCurrentUser();
-  getReimbursementsByUserId();
 };
 
-function renderCurrentUser() {
-  const currentUser = fetch("http://localhost:7000/current_user", {
+setTimeout(function () {
+  getReimbursementsByUserId(sessionStorage.getItem("id"));
+}, 500);
+
+async function renderCurrentUser() {
+  const eCurrentUser = await fetch("http://localhost:7000/current_user", {
     method: "GET",
     credentials: "include",
   }).then((response) => {
@@ -14,50 +17,72 @@ function renderCurrentUser() {
     return response.json();
   });
 
-  console.log(currentUser);
+  console.log(eCurrentUser);
 
-  let id = currentUser.id;
-  let username = currentUser.username;
-  let password = currentUser.password;
-  let firstName = currentUser.firstName;
-  let lastName = currentUser.lastName;
-  let email = currentUser.email;
+  let eId = eCurrentUser.id;
+  let eUsername = eCurrentUser.username;
+  let ePassword = eCurrentUser.password;
+  let eFirstName = eCurrentUser.firstName;
+  let eLastName = eCurrentUser.lastName;
+  let eEmail = eCurrentUser.email;
+
+  // save userId, check browser support
+  if (typeof Storage !== "undefined") {
+    // store
+    console.log("i'm here...");
+    sessionStorage.setItem("id", eId);
+    sessionStorage.setItem("eUsername", eUsername);
+  }
 
   let userInfoElement = document.querySelector("#user");
-  userInfoElement.innerHTML = `User id: ${id}, username: ${username}, firstName: ${firstName}`;
+  userInfoElement.innerHTML = `firstName: ${eFirstName}, lastName: ${eLastName}, email: ${eEmail}`;
 
-  return currentUser;
+  return eCurrentUser;
 }
 
-function getReimbursementsByUserId(userId) {
-  let currentUser = renderCurrentUser();
-  console.log(currentUser);
-
-  let id = currentUser.id;
-
-  const resultList = fetch("http://localhost:7000/reimbursements/" + id, {
+async function getReimbursementsByUserId(id) {
+  id = sessionStorage.getItem("id");
+  console.log("from session id: " + id + typeof id);
+  const resultList = await fetch(`http://localhost:7000/reimbursements/` + id, {
     method: "GET",
     credentials: "include",
-  }).then((response) => {
-    if (response.status === 400) {
-      window.location.href = "/";
-    }
-    return response.json();
-  });
+  })
+    .then((response) => {
+      if (response.status === 400) {
+        window.location.href = "/";
+      }
+      return response.json();
+    })
+    .then((data) => {
+      data.map((reimbursement) => {
+        // format time
+        // let formatSubmitted = reimbursement.submitted.toLocaleDateString();
+        let d = new Date(reimbursement.submitted);
+        formatSubmitted = d.toLocaleDateString();
 
-  resultList.forEach((reimbursement) => {
-    let resultsUserReimbursementsElement = document.querySelector(
-      "#results-user-reimbursementst"
-    );
-    resultsUserReimbursementsElement.innerHTML +=
-      `ReimbursementId: ${reimbursement.id}, amount: $ ${reimbursement.amount},` +
-      `description: ${reimbursement.description}, submitted: ${reimbursement.submitted.monthValue}-${reimbursement.submitted.dayOfMonth},-${reimbursement.submitted.year}
-       by author: ${reimbursement.author}, typeId: ${reimbursement.typeId}<br />`;
-  });
+        let dr = new Date(reimbursement.resolved);
+        formatResolved = dr.toLocaleDateString();
+
+        let resultsUserReimbursementsElement = document.querySelector(
+          "#user-reimbursements"
+        );
+        resultsUserReimbursementsElement.innerHTML += `<tr>
+          <td>${reimbursement.id}</td>
+          <td>${reimbursement.amount}</td>
+          <td>${reimbursement.typeId}</td>
+          <td>${reimbursement.description}</td>
+          <td>${formatSubmitted}</td>
+          <td>${reimbursement.status}</td>
+          <td>${formatResolved}
+          </td><td>${reimbursement.resolver}</td>
+        </tr>`;
+      });
+    });
 }
 
 function logout() {
-  const result = fetch("http://localhost:7000/logout", {
+  console.log("you clicked me: logout button");
+  fetch("http://localhost:7000/logout", {
     method: "POST",
     mode: "no-cors",
     credentials: "include",

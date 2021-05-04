@@ -25,25 +25,3 @@ nav {
 #nav-mobile {
   color: hsl(230, 29%, 20%);
 }
-
-.main {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: no-wrap;
-}
-
-.main-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 3em;
-}
-
-#reimbursements {
-  margin-left: 1em;
-  flex-grow: 2;
-}
-
-.card {
-  padding: 3rem;
-}
