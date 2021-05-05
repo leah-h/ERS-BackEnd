@@ -22,11 +22,45 @@
   </div>
 </nav>
 <div class="main-body">
+  <div class="main-left">
   <div class="card">
     <div id="main-user">
       <h2>Your manager account:</h2>
       <p id="manager"></p>
     </div>
+    </div>
+
+    <div class="card">
+      <span class="card-title">Approve Reimbursement Request</span>
+      <div class="row">
+        <div class="input-field">
+          <input id="aId" type="number" class="validate" required>
+          <label for="aId">Reimbursement Id</label>
+        </div>
+      </div>
+    <div class="row">
+      <div class="input-field">
+        <input id="aStatus" type="number" class="validate" required>
+        <label for="aStatus">New Status</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <input id="aResolved" type="date" class="validate" required>
+        <label for="aResolved">Resolved On</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field">
+        <input id="aResolver" type="number" class="validate" required>
+        <label for="aResolver">Approved By</label>
+      </div>
+    </div>
+    <br />
+    <div class="card-action">
+      <a class="waves-effect waves-light btn btn-red" id="approval-button">APPROVE</a>
+    </div>
+</div>
 </div>
 
 <div class="card" id="all-reimbursements">
@@ -60,6 +94,7 @@
   <div id="results-reimbursement"></div>
 
 </div>
+
 
 <script src="js/manager.js"></script>
 <script src="js/filterStatus.js"></script>

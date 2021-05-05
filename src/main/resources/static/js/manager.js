@@ -135,6 +135,40 @@ async function filterStatusById(id) {
   });
 }
 
+function approveReimbursementRequest() {
+  let reimId = document.getElementById("aId");
+  let aStatus = document.getElementById("aStatus");
+  let aResolved = document.getElementById("aResolved");
+  let aResolver = document.getElementById("aResolver");
+
+  let data = {
+    id: reimId.value,
+    statusId: aStatus.value,
+    resolved: aResolved.value,
+    resolver: aResolver.value,
+  };
+
+  console.log("data: " + data);
+  console.log("data.id: " + data.id);
+
+  fetch(`http://localhost:7000/reimbursements/` + data.id, {
+    method: "PUT",
+    credentials: "include",
+    body: JSON.stringify(data),
+  }).then((response) => {
+    if (response.status === 200) {
+      return response;
+    } else if (response.status === 401) {
+      console.log("Unable to process request. Please try again");
+    }
+  });
+
+  //clears table
+  document.getElementById("manager-reimbursements").innerHTML = "";
+  // re-renders
+  getAllReimbursements();
+}
+
 let mLogout = document.getElementById("manager-logout");
 mLogout.addEventListener("click", logout);
 
@@ -150,3 +184,6 @@ selectStatus.addEventListener("change", (event) => {
     filterStatusById(id);
   }
 });
+
+let approvalButton = document.getElementById("approval-button");
+approvalButton.addEventListener("click", approveReimbursementRequest);

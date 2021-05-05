@@ -110,9 +110,9 @@ function addReimbursementRequest() {
   let data = {
     amount: eAmount.value,
     typeId: eType.value,
-
     description: eDescription.value,
     submitted: eSubmitted.value,
+    statusId: 1,
     author: eAuthor.value,
     receipt: eReceipt.value,
   };
@@ -132,17 +132,13 @@ function addReimbursementRequest() {
     }
   });
 
-  // console.log("Reimbursement Request result: " + response);
-  // if (response != null) {
-  //   reimForm.clear();
-  // }
-  // return response;
+  //clears table
+  document.getElementById("user-reimbursements").innerHTML = "";
+  // re-renders
+  getReimbursementsByUserId();
 }
 
 let logoutButton = document.getElementById("logout");
 logoutButton.addEventListener("click", logout);
 
-reqSubmitButton.addEventListener("click", () => {
-  document.getElementById("reim-request-form").innerHTML = "";
-  addReimbursementRequest();
-});
+reqSubmitButton.addEventListener("click", addReimbursementRequest);
