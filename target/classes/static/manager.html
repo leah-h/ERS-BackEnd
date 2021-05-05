@@ -28,10 +28,40 @@
       <p id="manager"></p>
     </div>
 </div>
+
+<div class="card" id="all-reimbursements">
+ 
+  <table class="highlight table table-sort">
+    <thead>
+      <tr>
+          <th>Id</th>
+          <th>Amount</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Submitted On</th>
+          <th>Submitted By</th>
+          <th>
+            <select name="status" id="status">
+              <option value="" selected></option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+          </th>
+          <th>Resolved On</th>
+          <th>Approved By</th>
+      </tr>
+    </thead>
+
+    <tbody id="manager-reimbursements">
+    </tbody>
+  </table>
+</div>
   <div id="results-reimbursement"></div>
 
 </div>
 
 <script src="js/manager.js"></script>
+<script src="js/filterStatus.js"></script>
 </body>
 </html>

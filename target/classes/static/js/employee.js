@@ -57,8 +57,7 @@ async function getReimbursementsByUserId(id) {
     })
     .then((data) => {
       data.map((reimbursement) => {
-        // format time
-        // let formatSubmitted = reimbursement.submitted.toLocaleDateString();
+        // format date
         let d = new Date(reimbursement.submitted);
         let formatSubmitted = d.toLocaleDateString();
 
@@ -74,7 +73,7 @@ async function getReimbursementsByUserId(id) {
           <td>${reimbursement.typeId}</td>
           <td>${reimbursement.description}</td>
           <td>${formatSubmitted}</td>
-          <td>${reimbursement.status}</td>
+          <td>${reimbursement.statusId}</td>
           <td>${formatResolved}</td>
           <td>${reimbursement.resolver}</td>
         </tr>`;
@@ -124,9 +123,6 @@ function addReimbursementRequest() {
     method: "POST",
     mode: "no-cors",
     credentials: "include",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
     body: JSON.stringify(data),
   }).then((response) => {
     if (response.status === 200) {

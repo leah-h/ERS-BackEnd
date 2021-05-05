@@ -32,11 +32,20 @@ nav {
   flex-wrap: no-wrap;
 }
 
-results-reimbursement {
+#all-reimbursements {
   margin-left: 1em;
   flex-grow: 2;
 }
 
 .card {
   padding: 3rem;
+}
+
+/* #status {
+  color: black;
+  background-color: red;
+} */
+
+select {
+  display: block;
 }

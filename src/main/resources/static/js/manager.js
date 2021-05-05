@@ -14,16 +14,34 @@ async function getAllReimbursements() {
     return response.json();
   });
 
-  reimbursements.forEach((reimbursement) => {
-    let resultsReimbursementsElement = document.querySelector(
-      "#results-reimbursement"
-    );
-    resultsReimbursementsElement.innerHTML +=
-      `ReimbursementId: ${reimbursement.id}, amount: $ ${reimbursement.amount},` +
-      `description: ${reimbursement.description}, submitted: ${reimbursement.submitted.monthValue}-${reimbursement.submitted.dayOfMonth},-${reimbursement.submitted.year} by author: ${reimbursement.author}, typeId: ${reimbursement.typeId}<br />`;
-  });
+  console.log(reimbursements);
 
-  return reimbursements;
+  reimbursements.forEach((reimRequest) => {
+    let resultsReimRequestElement = document.querySelector("reimbursements");
+    // format date
+    let d = new Date(reimRequest.submitted);
+    let formatSubmitted = d.toLocaleDateString();
+
+    let dr = new Date(reimRequest.resolved);
+    let formatResolved = dr.toLocaleDateString();
+
+    let resultsReimRequestsElement = document.querySelector(
+      "#manager-reimbursements"
+    );
+    resultsReimRequestsElement.innerHTML += `<tr>
+       <td>${reimRequest.id}</td>
+       <td>${reimRequest.amount}</td>
+       <td>${reimRequest.typeId}</td>
+       <td>${reimRequest.description}</td>
+       <td>${formatSubmitted}</td>
+       <td>${reimRequest.author}</td>
+       <td>${reimRequest.statusId}</td>
+       <td>${formatResolved}</td>
+       <td>${reimRequest.resolver}</td>
+     </tr>`;
+
+    return reimbursements;
+  });
 }
 
 async function renderCurrentUser() {
@@ -52,7 +70,7 @@ async function renderCurrentUser() {
   }
 
   let userInfoElement = document.querySelector("#manager");
-  userInfoElement.innerHTML = `firstName: ${firstName}, lastName: ${lastName}, email: ${email}`;
+  userInfoElement.innerHTML = `userid: ${id}, firstName: ${firstName}, lastName: ${lastName}, email: ${email}`;
 
   return currentUser;
 }
@@ -72,5 +90,63 @@ function logout() {
   });
 }
 
+async function filterStatusById(id) {
+  console.log("id from onchange: " + id);
+
+  const filteredReim = await fetch(
+    `http://localhost:7000/reimbursements/filtered/` + id,
+    {
+      method: "GET",
+      credentials: "include",
+    }
+  ).then((response) => {
+    if (response.status === 400) {
+      window.location.href = "/";
+    }
+    return response.json();
+  });
+
+  filteredReim.forEach((reimRequest) => {
+    let resultsReimRequestElement = document.querySelector("reimbursements");
+    // format date
+    let d = new Date(reimRequest.submitted);
+    let formatSubmitted = d.toLocaleDateString();
+
+    let dr = new Date(reimRequest.resolved);
+    let formatResolved = dr.toLocaleDateString();
+
+    let filteredReimRequestsElement = document.querySelector(
+      "#manager-reimbursements"
+    );
+    filteredReimRequestsElement.innerHTML += `<tr>
+       <td>${reimRequest.id}</td>
+       <td>${reimRequest.amount}</td>
+       <td>${reimRequest.typeId}</td>
+       <td>${reimRequest.description}</td>
+       <td>${formatSubmitted}</td>
+       <td>${reimRequest.author}</td>
+       <td>${reimRequest.statusId}</td>
+       <td>${formatResolved}</td>
+       <td>${reimRequest.resolver}</td>
+     </tr>`;
+
+    console.log("filtered reim: " + filteredReim);
+    return filteredReim;
+  });
+}
+
 let mLogout = document.getElementById("manager-logout");
 mLogout.addEventListener("click", logout);
+
+const selectStatus = document.getElementById("status");
+selectStatus.addEventListener("change", (event) => {
+  let id = event.target.value;
+
+  if (id == "") {
+    document.getElementById("manager-reimbursements").innerHTML = "";
+    getAllReimbursements();
+  } else {
+    document.getElementById("manager-reimbursements").innerHTML = "";
+    filterStatusById(id);
+  }
+});
