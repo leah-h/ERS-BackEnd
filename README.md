@@ -43,6 +43,6 @@ Landing Page View:
 Employee View:
 ![ERS_Employee_Page](src/main/resources/static/images/ERS_employee_view.png)
 
-Manager View Sorted By Status IdReimbursements: 
+Manager View Sorted By Status: 
 ![ERS_Manager_Page](src/main/resources/static/images/ERS_mgr_sorted1.png)
 
