@@ -5,6 +5,7 @@ requests. Both the employee and manager will be able to view reimbursement submi
 The employee will also be able to submit a new request. The HR manager will be able to filter/sort through 
 these requests by status. He/she will be able to approve or deny such requests.
 
+<br>
 ### Technologies Used
 - Java 8
 - MariaDB
@@ -15,7 +16,7 @@ these requests by status. He/she will be able to approve or deny such requests.
 - Logback
 - JUnit
 
-
+<br>
 ### Features
 - Employee will be able to login/logout
     1. view their account information 
@@ -26,7 +27,7 @@ these requests by status. He/she will be able to approve or deny such requests.
     2. able to filter these request by status
     3. able to approve/deny request
   
-  
+<br>  
 ### Getting Started
 
 1. From terminal, cd to directory where project will be located
@@ -46,5 +47,8 @@ Employee View:
 Manager View Sorted By Status: 
 ![ERS_Manager_Page](src/main/resources/static/images/ERS_mgr_sorted1.png)
 
+<br>
 
-[GNU General Public License](LICENSE)
+### License
+This project uses the following license: <[GNU General Public License](LICENSE)>.
+
