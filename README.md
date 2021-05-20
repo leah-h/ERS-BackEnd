@@ -18,6 +18,7 @@ these requests by status. He/she will be able to approve or deny such requests.
 - JUnit
 
 <hr />
+
 ### Features
 - Employee will be able to login/logout
     1. view their account information 
@@ -29,6 +30,7 @@ these requests by status. He/she will be able to approve or deny such requests.
     3. able to approve/deny request
   
 <hr />  
+
 ### Getting Started
 
 1. From terminal, cd to directory where project will be located
@@ -49,6 +51,7 @@ Manager View Sorted By Status:
 ![ERS_Manager_Page](src/main/resources/static/images/ERS_mgr_sorted1.png)
 
 <hr />
+
 ### License
 This project uses the following license: <[GNU General Public License](LICENSE)>.
 
