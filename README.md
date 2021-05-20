@@ -46,3 +46,5 @@ Employee View:
 Manager View Sorted By Status: 
 ![ERS_Manager_Page](src/main/resources/static/images/ERS_mgr_sorted1.png)
 
+
+[GNU General Public License](LICENSE)
