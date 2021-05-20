@@ -23,7 +23,7 @@ public class ReimbursementController implements Controller {
 
         List<Reimbursement> reimbursementList = reimbursementService.getAllReimbursements();
 
-        logger.info("i'm here...");
+        logger.info("All reimbursements successfully retrieved");
         ctx.json(reimbursementList);
     };
 
@@ -33,6 +33,7 @@ public class ReimbursementController implements Controller {
         List<Reimbursement> userReimbursements = reimbursementService.getReimbursementByUserId(Integer.parseInt(id));
 
         if(!userReimbursements.isEmpty()) {
+            logger.info("Reimbursements by user returned successfully.");
             ctx.json(userReimbursements);
         } else {
             logger.info("User with id: " + Integer.parseInt(id) + " does not exist.");
@@ -47,6 +48,7 @@ public class ReimbursementController implements Controller {
         Reimbursement insertedReimbursement = reimbursementService.addReimbursement(reimbursement);
 
         if (insertedReimbursement.getId() != 0) {
+            logger.info("New reimbursement successfully added.");
             ctx.json(insertedReimbursement);
         } else {
             logger.info("Something went wrong...try again");
@@ -63,7 +65,7 @@ public class ReimbursementController implements Controller {
                 filterReimbursementsByStatusId(Integer.parseInt(id));
 
         if(!reimbursementsByStatus.isEmpty()) {
-            logger.info("where's my reimbursements?!");
+            logger.info("Returned filtered reimbursements view...");
             ctx.json(reimbursementsByStatus);
         } else {
             logger.info("Reimbursements with statusId: " + Integer.parseInt(id) + " does not exist.");
@@ -81,6 +83,7 @@ public class ReimbursementController implements Controller {
                 reimbursement);
 
         if (approvedReimbursement.getId() != 0) {
+            logger.info("Approval request updated...");
             ctx.json(approvedReimbursement);
         } else {
             logger.info("Something went wrong...try again");

@@ -64,6 +64,14 @@ async function getReimbursementsByUserId(id) {
         let dr = new Date(reimbursement.resolved);
         let formatResolved = dr.toLocaleDateString();
 
+        if (formatResolved == "12/31/1969") {
+          formatResolved = "";
+        }
+
+        if (reimbursement.resolver == 0) {
+          reimbursement.resolver = "";
+        }
+
         let resultsUserReimbursementsElement = document.querySelector(
           "#user-reimbursements"
         );

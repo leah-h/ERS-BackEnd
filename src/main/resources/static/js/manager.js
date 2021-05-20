@@ -25,6 +25,14 @@ async function getAllReimbursements() {
     let dr = new Date(reimRequest.resolved);
     let formatResolved = dr.toLocaleDateString();
 
+    // if (formatResolved == "12/31/1969") {
+    //   formatReimResolved = "";
+    // }
+
+    // if (reimbursement.resolver == 0) {
+    //   reimApprovalRequest.resolver = "";
+    // }
+
     let resultsReimRequestsElement = document.querySelector(
       "#manager-reimbursements"
     );
@@ -162,11 +170,6 @@ function approveReimbursementRequest() {
       console.log("Unable to process request. Please try again");
     }
   });
-
-  //clears table
-  document.getElementById("manager-reimbursements").innerHTML = "";
-  // re-renders
-  getAllReimbursements();
 }
 
 let mLogout = document.getElementById("manager-logout");
@@ -186,4 +189,9 @@ selectStatus.addEventListener("change", (event) => {
 });
 
 let approvalButton = document.getElementById("approval-button");
-approvalButton.addEventListener("click", approveReimbursementRequest);
+approvalButton.addEventListener("click", () => {
+  approveReimbursementRequest();
+
+  //resets form
+  document.getElementById("approval-request-form").reset();
+});
