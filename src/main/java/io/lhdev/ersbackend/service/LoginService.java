@@ -26,7 +26,7 @@ public class LoginService {
     public User login(LoginDTO loginDTO) throws BadParameterException, LoginException, SQLException, DatabaseException {
         // check for blank name, password
         if(loginDTO.getUsername().trim().equals("") || loginDTO.getPassword().trim().equals("")) {
-            throw new BadParameterException("Cannot have a blank name and/or password");
+            throw new BadParameterException("Cannot have a blank name and password");
         }
 
         User user = userDAO.getUserByUsernameAndPassword(loginDTO);
