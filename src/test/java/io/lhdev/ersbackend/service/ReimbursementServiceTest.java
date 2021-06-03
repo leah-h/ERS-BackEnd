@@ -9,8 +9,10 @@ import io.lhdev.ersbackend.util.ConnectionUtil;
 
 import io.lhdev.ersbackend.util.SessionUtility;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.*;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.mockito.MockedStatic;
 
 import java.sql.Connection;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 class ReimbursementServiceTest {
@@ -31,40 +34,34 @@ class ReimbursementServiceTest {
     // The system under test, our reimbursementService instance;
     private ReimbursementService reimbursementService;
 
-    @BeforeAll
+    @BeforeClass
     public static void setupAll() throws DatabaseException {
         mockReimbursementDAO = mock(ReimbursementDAO.class);
         mockSessionFactory = mock(SessionFactory.class);
-//
-//        User userTest = new User(1111, "test@lhdev.io", "password", 2);
-//        List<Reimbursement> reimList = new ArrayList<>();
-//
-//        Reimbursement testReim1 = new Reimbursement(8000, 569.00, "room fees",
-//                1002, 2);
-//        Reimbursement testReim2 = new Reimbursement(8001, 350.00, "misc.",
-//                1002, 4);
-//
-//        reimList.add(testReim1);
-//        reimList.add(testReim2);
-//
-//        when(mockReimbursementDAO.getReimbursementsByUserId()
+
+        User user = new User(1111, "test@lhdev.io", "password", 2);
+        List<Reimbursement> reimList = new ArrayList<>();
+
+        Reimbursement testReim1 = new Reimbursement(8000, 569.00, "room fees",
+                1002, 2);
+        Reimbursement testReim2 = new Reimbursement(8001, 350.00, "misc.",
+                1002, 4);
+
+        reimList.add(testReim1);
+        reimList.add(testReim2);
+
+//        when(mockReimbursementDAO.getAllReimbursements(eq(new User(user)))
 //                .thenReturn(reimList));
-//
-//
-//        System.out.println("Should Print Before All Tests");
+
+
+        System.out.println("Should Print Before All Tests");
     }
 
-    @BeforeEach
-    public void setUp() throws DatabaseException {
-        mockReimbursementDAO = mock(ReimbursementDAO.class);
-//        mockConnection = mock(Connection.class);
-
-        reimbursementService = new ReimbursementService(mockReimbursementDAO);
+    @Before
+    public void beforeTest() {
+        reimbursementService = new ReimbursementService((mockReimbursementDAO));
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     public void getAllReimbursements() throws SQLException, DatabaseException {
@@ -94,9 +91,9 @@ class ReimbursementServiceTest {
             reimbursement = new Reimbursement(6269, 569.00, "room fees", 1002, 2);
 
             reimbursementService.addReimbursement(reimbursement);
-            Assertions.assertFalse(mockReimbursementDAO.getAllReimbursements().isEmpty());
-            Assertions.assertEquals(1, mockReimbursementDAO.getAllReimbursements().size());
-            Assertions.assertTrue(reimbursementService.getAllReimbursements().stream()
+            assertFalse(mockReimbursementDAO.getAllReimbursements().isEmpty());
+            assertEquals(1, mockReimbursementDAO.getAllReimbursements().size());
+            assertTrue(reimbursementService.getAllReimbursements().stream()
                     .anyMatch(reim -> Objects.equals(reim.getId(), 6269) &&
                             Objects.equals(reim.getAmount(), 569.00) &&
                             Objects.equals(reim.getDescription(), ("room fees")) &&
