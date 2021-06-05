@@ -68,6 +68,7 @@ public class User {
         this.roleId = roleId;
     }
 
+
     @Id
     public int getId() {
         return userId;

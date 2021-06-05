@@ -60,12 +60,13 @@ public class Reimbursement {
         this.typeId = typeId;
     }
 
-    public Reimbursement(int reimId, double amount, String description, int author, int typeId){
+    public Reimbursement(int reimId, double amount, String description, int author, int typeId, int statusId){
         this.reimId = reimId;
         this.amount = amount;
         this.description = description;
         this.author = author;
         this.typeId = typeId;
+        this.statusId = getStatusId();
     }
 
     public Reimbursement(double amount, Date submitted, String description, int author, int typeId){
@@ -74,6 +75,15 @@ public class Reimbursement {
         this.description = description;
         this.author = author;
         this.typeId = typeId;
+    }
+
+    public Reimbursement(double amount, Date submitted, String description, int author, int typeId, int statusId){
+        this.amount = amount;
+        this.submitted = submitted;
+        this.description = description;
+        this.author = author;
+        this.typeId = typeId;
+        this.statusId = statusId;
     }
 
     public Reimbursement(int reimId, double amount, Date submitted, Date resolved, String description, int author,

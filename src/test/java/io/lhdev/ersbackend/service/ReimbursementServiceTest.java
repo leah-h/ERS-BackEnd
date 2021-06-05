@@ -1,13 +1,9 @@
 package io.lhdev.ersbackend.service;
-
 import io.lhdev.ersbackend.DAO.ReimbursementDAO;
-import io.lhdev.ersbackend.exception.BadParameterException;
 import io.lhdev.ersbackend.exception.DatabaseException;
 import io.lhdev.ersbackend.model.Reimbursement;
-import io.lhdev.ersbackend.model.User;
-import io.lhdev.ersbackend.util.ConnectionUtil;
-
 import io.lhdev.ersbackend.util.SessionUtility;
+
 import org.hibernate.SessionFactory;
 
 import org.junit.Before;
@@ -15,17 +11,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.MockedStatic;
 
-import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-class ReimbursementServiceTest {
-
+public class ReimbursementServiceTest {
 
     // Fake repository dependency(mocked with Mockito)
     private static ReimbursementDAO mockReimbursementDAO;
@@ -35,26 +31,31 @@ class ReimbursementServiceTest {
     private ReimbursementService reimbursementService;
 
     @BeforeClass
-    public static void setupAll() throws DatabaseException {
+    public static void setUp() throws DatabaseException, SQLException {
         mockReimbursementDAO = mock(ReimbursementDAO.class);
         mockSessionFactory = mock(SessionFactory.class);
 
-        User user = new User(1111, "test@lhdev.io", "password", 2);
         List<Reimbursement> reimList = new ArrayList<>();
 
-        Reimbursement testReim1 = new Reimbursement(8000, 569.00, "room fees",
-                1002, 2);
-        Reimbursement testReim2 = new Reimbursement(8001, 350.00, "misc.",
-                1002, 4);
-
+        Reimbursement testReim1 = new Reimbursement(300, new Date(100), "food", 0, 1);
+        Reimbursement testReim2 = new Reimbursement(100, new Date(500), "lodging", 300, 2);
         reimList.add(testReim1);
         reimList.add(testReim2);
 
-//        when(mockReimbursementDAO.getAllReimbursements(eq(new User(user)))
-//                .thenReturn(reimList));
+        List<Reimbursement> testList = new ArrayList<>();
+        Reimbursement testReim4 = new Reimbursement(100, 300, "food", 300, 1, 2);
+        testList.add(testReim4);
 
+        when(mockReimbursementDAO.getAllReimbursements()).thenReturn(reimList);
 
-        System.out.println("Should Print Before All Tests");
+        Reimbursement testReim3 = new Reimbursement(100, new Date(100), "food", 0, 1);
+        when(mockReimbursementDAO.addReimbursement(testReim3)).thenReturn(testReim3);
+
+       when(mockReimbursementDAO.getReimbursementsByUserId(300)).thenReturn(Collections.singletonList((testReim2)));
+
+       when(mockReimbursementDAO.filterReimbursementsByStatusId(1)).thenReturn(testList);
+       when(mockReimbursementDAO.approveReimbursementById(100, testReim4)).thenReturn((testReim4));
+
     }
 
     @Before
@@ -64,70 +65,91 @@ class ReimbursementServiceTest {
 
 
     @Test
-    public void getAllReimbursements() throws SQLException, DatabaseException {
+    public void test_getAllReimbursements_happy() throws SQLException, DatabaseException {
 
-//        try (MockedStatic<SessionUtility> mockedSessionUtil = mockStatic(SessionUtility.class) {
-//            mockedSessionUtil.when(SessionUtility::getSessionFactory).thenReturn(mockSessionFactory);
-//
-//            Assertions.assertFalse(reimbursementService.getAllReimbursements().isEmpty());
-//            Assertions.assertEquals(1, reimbursementService.getAllReimbursements().size());
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//
+        try (MockedStatic<SessionUtility> mockedSessionUtil = mockStatic(SessionUtility.class)) {
+            mockedSessionUtil.when(SessionUtility::getSessionFactory).thenReturn(mockSessionFactory);
 
-    }
+            List<Reimbursement> expected = new ArrayList<>();
 
-    @Test
-    void getReimbursementByUserId() {
-    }
+            Reimbursement testReim1 = new Reimbursement(300, new Date(100), "food", 0, 1);
+            Reimbursement testReim2 = new Reimbursement(100, new Date(500), "lodging", 300, 2);
 
-    @Test
-    public void itShouldAddReimbursement() throws SQLException, DatabaseException {
+            expected.add(testReim1);
+            expected.add(testReim2);
 
-        try {
+            List<Reimbursement> actual = reimbursementService.getAllReimbursements();
 
-            Reimbursement reimbursement = new Reimbursement();
-            reimbursement = new Reimbursement(6269, 569.00, "room fees", 1002, 2);
-
-            reimbursementService.addReimbursement(reimbursement);
-            assertFalse(mockReimbursementDAO.getAllReimbursements().isEmpty());
-            assertEquals(1, mockReimbursementDAO.getAllReimbursements().size());
-            assertTrue(reimbursementService.getAllReimbursements().stream()
-                    .anyMatch(reim -> Objects.equals(reim.getId(), 6269) &&
-                            Objects.equals(reim.getAmount(), 569.00) &&
-                            Objects.equals(reim.getDescription(), ("room fees")) &&
-                            Objects.equals(reim.getAuthor(), 1002) &&
-                            Objects.equals(reim.getTypeId(), 2)));
-        } catch (Exception e) {
-            e.printStackTrace();
+            assertEquals(expected, actual);
         }
     }
-//
-//    @Test
-//    @DisplayName("It Should Not Create Reimbursement When Amount is Blank")
-//    public void itShouldThrowRuntimeExceptionWhenAmountIsNull() {
-//
-//          Assertions.assertThrows(RuntimeException.class, () -> {
-//              reimbursementService.addReimbursement(6269, null, "room fees", 1002, 2);
-//          });
-//    }
-//
-//    @Test
-//    @DisplayName("It Should Not Create Reimbursement When Id is nonInteger")
-//    public void itShouldThrowRuntimeExceptionWhenIdIsNonInteger() {
-//
-//        Assertions.assertThrows(RuntimeException.class, () -> {
-//            reimbursementService.addReimbursement("abc", 300, "room fees", 1002, 2);
-//        });
-//    }
 
     @Test
-    public void itShouldFilterReimbursementsByStatusId() {
+    public void getReimbursementByUserId() {
+        try (MockedStatic<SessionUtility> mockedSessionUtil = mockStatic(SessionUtility.class)) {
+            mockedSessionUtil.when(SessionUtility::getSessionFactory).thenReturn(mockSessionFactory);
+
+            List<Reimbursement> expectedList = new ArrayList<>();
+            Reimbursement testReim = new Reimbursement(100, new Date(500), "lodging", 300, 2);
+            expectedList.add(testReim);
+
+            List<Reimbursement> actual = reimbursementService.getReimbursementByUserId(300);
+
+            assertEquals(expectedList, actual);
+
+        } catch (SQLException | DatabaseException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Test
-    void approveReimbursementById() {
+    public void test_addReimbursement_happy() throws SQLException, DatabaseException{
+
+        try (MockedStatic<SessionUtility> mockedSessionUtil = mockStatic(SessionUtility.class)) {
+            mockedSessionUtil.when(SessionUtility::getSessionFactory).thenReturn(mockSessionFactory);
+
+            reimbursementService.addReimbursement(new Reimbursement(100, new Date(100), "food", 0, 1));
+        }
     }
+
+
+    @Test
+    public void itShouldFilterReimbursementsByStatusId() throws SQLException, DatabaseException {
+
+        try (MockedStatic<SessionUtility> mockedSessionUtil = mockStatic(SessionUtility.class)) {
+            mockedSessionUtil.when(SessionUtility::getSessionFactory).thenReturn(mockSessionFactory);
+
+            List<Reimbursement> expected = new ArrayList<>();
+            Reimbursement testReim4 = new Reimbursement(100, 300, "food", 300, 1, 1);
+            expected.add(testReim4);
+
+            List<Reimbursement> actual = reimbursementService.filterReimbursementsByStatusId(1);
+
+            assertEquals(expected, actual);
+
+        }
+    }
+
+
+    @Test
+    public void itShouldApproveReimbursementById() {
+            try (MockedStatic<SessionUtility> mockedSessionUtil = mockStatic(SessionUtility.class)) {
+                mockedSessionUtil.when(SessionUtility::getSessionFactory).thenReturn(mockSessionFactory);
+
+                List<Reimbursement> expected = new ArrayList<>();
+                Reimbursement reim = new Reimbursement(100, 300.00, "food", 300,  1, 2);
+                expected.add(reim);
+
+                Reimbursement newReim = new Reimbursement(100, 300.00, "food", 300,  1, 2);
+
+                Reimbursement actual = reimbursementService.approveReimbursementById(100, newReim);
+
+                assertEquals(expected, actual);
+
+        } catch (SQLException | DatabaseException e) {
+                e.printStackTrace();
+            }
+    }
+
 }

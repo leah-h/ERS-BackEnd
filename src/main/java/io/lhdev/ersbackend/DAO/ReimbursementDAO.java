@@ -29,7 +29,7 @@ public class ReimbursementDAO {
         this.connection = connection;
     }
 
-    public static List<Reimbursement> getAllReimbursements() {
+    public List<Reimbursement> getAllReimbursements() {
 
         Session session = SessionUtility.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
